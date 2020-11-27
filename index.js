@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 
-const Bookmark = [];
+const Bookmark = [{id: cuid(), title: 'google', url: 'http://google.com', desc:'google', rate :'rate', expanded: false}];
 /*
 $.fn.extend({
     serializeJson: function(){
@@ -13,12 +13,11 @@ $.fn.extend({
 })
 */
 const generageBookmarkElement = function(item){
-    console.log(item);
     return `<li class="bookmark-container" data-item-id="${item.id}"> 
     <h3>${item.title}</h3>
     <p class="rate">${item.rate}</p>
-    <p>${item.desc}</p>
-    <p><a href="${item.url}" calss="link">Link</a></p>
+    <p class="${item.expanded ? '' : "article-expanded"}">${item.desc}</p>
+    <p class="${item.expanded ? '' : "article-expanded"}"><a href="${item.url}" calss="link">Link</a></p>   
     <button class="detail-bookmark-button">•••</button>
     <button class="delete-bookmark-button">Delete</button>
 </li>`
@@ -81,10 +80,32 @@ const addBookmarkClick = function(){
 })
 };
 
+const detailBookmarkView = function(id){
+       const item = Bookmark.find(item => item.id === id);
+       item.expanded = !item.expanded;
+}
+
+const detailBookmarkClicked = function(){
+    $('.bookmark-article').on('click', '.detail-bookmark-button' ,  event=>{
+        console.log('detail clicked');
+        const detail = $(event.target);
+        detailBookmarkView(detail);
+        render();
+    });
+}
+
+const deleteBookmarkList = function(id){
+    const item = Bookmark.find(item => item.id = id);
+
+    Bookmark.splice(item, 1);
+}
+
+
 const deleteBookmarkClick = function(){
-    $('.bookmark-article').on('click', 'delete-bookmark-button' , event=>{
-        const itemId = getItemIdFromElement(event.currentTarget);
-        console.log('delete');
+    $('.bookmark-article').on('click', '.delete-bookmark-button' , event=>{
+        const itemId = $(event.currentTarget);
+        deleteBookmarkList(itemId);
+        render();
     })
 };
 
@@ -92,6 +113,7 @@ const main = function(){
 render();
 addBookmarkSubmit();
 addBookmarkClick();
+detailBookmarkClicked();
 deleteBookmarkClick();
 }
 

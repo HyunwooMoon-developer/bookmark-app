@@ -32,6 +32,10 @@ p{
 .hidden{
     display: none;
 }
+
+.article-expanded{
+    display: none;
+}
 .link{
     color: blue;
 }
