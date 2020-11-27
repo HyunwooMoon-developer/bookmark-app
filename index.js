@@ -1,19 +1,24 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
+/* eslint-disable no-unused-vars */
 
-const BookmarkList = [
-        {id:cuid(), title: 'google', url: 'http://google.com', desc: "google page", rate: 3},
-        {id:cuid(), title: 'github', url: 'http:github.com', desc: "github page", rate: 4}
-    ];
-
-
-const generageBookmarkElement = function(mark){
-    console.log(mark);
-    return `<li class="bookmark-container" data-item-id="${mark.id}"> 
-    <h3>${mark.title}</h3>
-    <p class="rate">${mark.rate}</p>
-    <p>${mark.desc}</p>
-    <p><a href="${mark.url}" calss="link">Link</a></p>
+const Bookmark = [];
+/*
+$.fn.extend({
+    serializeJson: function(){
+        const formData = new FormData(this[0]);
+        const obj = {};
+        formData.forEach((val, name) => obj[name] = val);
+        return JSON.stringify(obj);
+    }
+})
+*/
+const generageBookmarkElement = function(item){
+    console.log(item);
+    return `<li class="bookmark-container" data-item-id="${item.id}"> 
+    <h3>${item.title}</h3>
+    <p class="rate">${item.rate}</p>
+    <p>${item.desc}</p>
+    <p><a href="${item.url}" calss="link">Link</a></p>
     <button class="detail-bookmark-button">•••</button>
     <button class="delete-bookmark-button">Delete</button>
 </li>`
@@ -24,17 +29,30 @@ const generateBookmarkString = function(item){
     return bookmarks.join("");
 };
 
+const getItemIdFromElement = function(item){
+    return $(item)
+            .closest('li')
+            .data('item-id');
+};
 
 const render = function(){
-    const bookmarkString = generateBookmarkString(BookmarkList);
+    console.log('render ran');
+    const bookmarkString = generateBookmarkString(Bookmark);
     $('.bookmark-article').html(bookmarkString);
 };
 
-const addBookmarkList = function(newTitle, newUrl, newDesc, newRate){
-    BookmarkList.push({id: cuid(), title: newTitle , url: newUrl, desc: newDesc, rate: newRate});
-}
 
-const addBookmarksubmit = function(){
+const addBookmarkSubmit = function(){
+    $('#add-bookmark').on('submit', '.add-submit-button' ,event=>{
+        /*
+        console.log($(event.target).serializeJson());
+        */
+       event.preventDefault();
+       console.log('ran');
+    });
+};
+
+const addMarkPage = function(){
     $('.add-container').html(`<form id="add-bookmark">
     <label for="title">Title : </label>
     <input type="text" id="title" name="title" placeholder="type title" required>
@@ -51,64 +69,28 @@ const addBookmarksubmit = function(){
         <option value="rate rate-four">4</option>
         <option value="rate rate-five">5</option>
     </select>
-    <button class="add-submit-button">submit</button>
+    <button type='submit' class="add-submit-button">submit</button>
 </form>`);
-    $('#add-bookmark').on('submit', '.add-submit-button',event=>{
-        event.preventDefault();
-
-        const siteTitle = $(event.target).find('#title').value();
-        const siteURL = $(event.target).find('#url').value();
-        const siteDesc = $(event.target).find('#desc').value();
-        const siteRate = $(event.target).find('#rate').value();
-
-        let bookmark = {
-            title : siteTitle,
-            url : siteURL ,
-            desc : siteDesc ,
-            rate : siteRate
-        }
-            addBookmarkList(bookmark);
-            render();
-    })
-};
-
-const addBookmarkPage = function(){
-    $('.add-container').html(`<form id="add-bookmark">
-        <label for="title">Title : </label>
-        <input type="text" id="title" name="title" placeholder="type title" required>
-        <label for="url">URL : </label>
-        <input type="text" id="url" name="url" placeholder="type url" required>
-        <br>
-        <label for="description">Description of Bookmark</label>   
-        <br> 
-        <textarea name="description" id="desc" cols="30" rows="3"></textarea>
-        <select name="rate" id="rate">
-            <option value="rate rate-one">1</option>
-            <option value="rate rate-two">2</option>
-            <option value="rate rate-three">3</option>
-            <option value="rate rate-four">4</option>
-            <option value="rate rate-five">5</option>
-        </select>
-        <button class="add-submit-button">submit</button>
-    </form>`)
-};
-
+}
 
 const addBookmarkClick = function(){
     return $(`#add-bookmark`).on('click', '.add-bookmark-button', event=>{
         event.preventDefault();
         $('.hidden').removeClass('hidden');
-        addBookmarksubmit();
+        addMarkPage();
 })
 };
 
 const deleteBookmarkClick = function(){
-    console.log('deleteBookmarkClick');
+    $('.bookmark-article').on('click', 'delete-bookmark-button' , event=>{
+        const itemId = getItemIdFromElement(event.currentTarget);
+        console.log('delete');
+    })
 };
 
 const main = function(){
 render();
-addBookmarksubmit();
+addBookmarkSubmit();
 addBookmarkClick();
 deleteBookmarkClick();
 }
