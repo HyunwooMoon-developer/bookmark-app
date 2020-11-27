@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 
-const Bookmark = [{id: cuid(), title: 'google', url: 'http://google.com', desc:'google', rate :'rate', expanded: false}];
+const Bookmark = [{id: cuid(), title: 'google', url: 'http://google.com', desc:'google', rate :3, expanded: false}];
 /*
 $.fn.extend({
     serializeJson: function(){
