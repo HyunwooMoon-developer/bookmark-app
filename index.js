@@ -3,7 +3,7 @@
 
 const Bookmark = [{id: cuid(), title: 'google', url: 'http://google.com', desc:'google', rate :3, expanded: false}];
 
-$.fn.extend({
+/*
     serializeJson: function(){
         const formData = new FormData(this[0]);
         const obj = {};
@@ -11,7 +11,7 @@ $.fn.extend({
         return JSON.stringify(obj);
     }
 })
-
+*/
 const generageBookmarkElement = function(item){
     return `<li class="bookmark-container" data-item-id="${item.id}"> 
     <h3>${item.title}</h3>
