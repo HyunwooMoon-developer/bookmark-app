@@ -1,5 +1,6 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
+import $ from 'jquery';
 
 const Bookmark = [{id: cuid(), title: 'google', url: 'http://google.com', desc:'google', rate :3, expanded: false}];
 
