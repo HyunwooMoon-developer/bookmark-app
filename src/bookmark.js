@@ -1,22 +1,92 @@
-/* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 import $ from 'jquery';
-import 'normalize.css';
-import './index.css';
 import store from './store';
 import api from './api';
-import  bookmarks from './bookmark';
+import cuid from 'cuid';
 
-const main = function(){
-    api.getBookmark()
-    .then((response) => {
-    response.forEach((bookmark) => store.addBookmark(bookmark));
-    bookmarks.render();
-})
-bookmarks.bindEventListener();
-};
+const generageBookmarkPage = function(){
+    $('#main').html(`
+            <div class="container">
+                <button class="js-add-button">Add Bookmark</button>
+                <select name="filter" id="filter">
+                    <option value="5">5</option>
+                    <option value="4">4</option>
+                    <option value="3">3</option>
+                    <option value="2">2</option>
+                    <option value="1">1</option>
+                </select>
+            <div class="add-container">
 
-$(main);
+            </div>
+            <ul class="bookmark-article">
+
+            </ul>
+    </div>
+    `)
+}
+
+const AddBookmarkPage = function(){
+    if(store.adding === true){
+    $('.add-container').html(`<form id="add-bookmark">
+    <label for="title">Title : </label>
+    <input type="text" id="title" name="title" placeholder="type title" required>
+    <label for="url">URL : </label>
+    <input type="text" id="url" name="url" placeholder="type url" required>
+    <br>
+    <label for="description">Description of Bookmark</label>   
+    <br> 
+    <textarea name="description" id="desc" cols="30" rows="3"></textarea>
+    <select name="rate" id="rate">
+        <option class="rate" value="1">1</option>
+        <option class="rate" value="2">2</option>
+        <option class="rate" value="3">3</option>
+        <option class="rate" value="4">4</option>
+        <option class="rate" value="5">5</option>
+    </select>
+    <button type='submit' class="add-submit-button">submit</button>
+</form>
+    `)}
+    else{
+        $('.add-container').addClass('hidden');
+    }
+    render();
+}
+
+const clickAddBookmark = function(){
+    $('#main').on('click' , '.js-add-button' ,e =>{
+        console.log('click');
+    })
+}
+
+
+const generateError = function(error){
+    return `
+    <div class="error-message">
+        <button id="cancel-error">Cancel</button>
+        <p>${error}</p>
+    </div>
+    `;
+}
+
+const renderError = function(){
+    if(store.error){
+        const emessage = generateError(store.error)
+    }
+}
+
+const render = function(){
+    renderError();
+$('.main').html(generageBookmarkPage());
+}
+const bindEventListener = function(){
+    generageBookmarkPage,
+    clickAddBookmark
+}
+
+export default {
+    bindEventListener,
+    render
+}
 
 /*
 const generageBookmarkElement = function(item){
@@ -126,15 +196,5 @@ const deleteBookmarkClick = function(){
         deleteBookmarkList(itemId);
         render();
     })
-};
-
-const main = function(){
-    render();
-    addBookmarkSubmit();
-    addBookmarkClick();
-    detailBookmarkClicked();
-    deleteBookmarkClick();
 }
-
-$(main);
 */

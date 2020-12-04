@@ -68,7 +68,7 @@ p{
     margin-bottom: 4px;
 }
 
-.add-bookmark-button{
+.js-add-button{
     background-color: black;
     text-align:center;
     text-decoration: none;
