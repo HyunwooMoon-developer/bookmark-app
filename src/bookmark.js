@@ -35,11 +35,11 @@ const generateBookmarkPage = function(){
                 <button class="js-add-button">Add Bookmark</button>
                 <label value="filter">Filter by Rate
                 <select name="filter" id="filter" class="filter">
-                    <option value="5">⭐⭐⭐⭐⭐</option>
-                    <option value="4">⭐⭐⭐⭐</option>
-                    <option value="3">⭐⭐⭐</option>
-                    <option value="2">⭐⭐</option>
-                    <option value="1">⭐</option>
+                    <option value="5">5</option>
+                    <option value="4">4</option>
+                    <option value="3">3</option>
+                    <option value="2">2</option>
+                    <option value="1">1</option>
                 </select>
                 </labe>
                 <div class="js-add-container">
@@ -75,6 +75,18 @@ const render = function(){
         $('.bookmark-article').html(bookmarkString);
 
 }
+const filterClick = function(){
+    $('#filter').on('change', () =>{
+        const filterValue = $('#filter option:selected').val();
+        store.Bookmark[filter] = filterValue;
+        
+    
+
+        render();
+ 
+    })
+}
+
 
 
 const AddBookmarkPage = function(){
@@ -90,11 +102,11 @@ const AddBookmarkPage = function(){
         <textarea name="desc" id="desc" cols="30" rows="3"></textarea>
         <label>Rate
         <select name="rating" id="rating">
-            <option value="1">⭐</option>
-            <option value="2">⭐⭐</option>
-            <option value="3">⭐⭐⭐</option>
-            <option value="4">⭐⭐⭐⭐</option>
-            <option value="5">⭐⭐⭐⭐⭐</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
         </select>
         </label>
         <button type='submit' class="add-submit-button">submit</button>
@@ -111,7 +123,6 @@ const AddBookmarkPage = function(){
 const clickAddBookmark = function(){
     $('main').on('click', '.js-add-button' , e=>{
         e.preventDefault();
-        console.log('click');
         store.adding = true ;
         AddBookmarkPage();
     })
@@ -129,6 +140,7 @@ const clickAddBookmark = function(){
                 store.adding = false;
                 store.expanded = false;
                 store.filter = 0;
+            $('.js-add-container').empty();
                 render();
             })
             .catch(e =>{
@@ -182,7 +194,8 @@ const deleteBookmarkClick = function(){
     clickAddBookmark(),
     deleteBookmarkClick(),
     addBookmarkSubmit(),
-    detailBookmarkClicked()
+    detailBookmarkClicked(),
+    filterClick()
 }
 
 

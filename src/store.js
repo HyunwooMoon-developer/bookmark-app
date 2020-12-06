@@ -20,10 +20,10 @@ const findAndDelete = function(id){
     this.Bookmark = this.Bookmark.filter(item => item.id !== id);
 };
 
-const findAndUpdate = function(id, newData){
+/*const findAndUpdate = function(id, newData){
     const current = this.findById(id);
     Object.assign(current, newData);
-};
+};*/
 
 
 
@@ -39,7 +39,7 @@ export default {
     filter,
     findById,
     findAndDelete,
-    findAndUpdate,
+    /*findAndUpdate*/
     addBookmark,
     setError
 }
