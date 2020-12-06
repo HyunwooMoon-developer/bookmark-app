@@ -45,14 +45,14 @@ p{
     color: hotpink;
 }
 
-.rate{
+.rating{
     text-align: right;
     font-weight: 600;
-    color: yellow;
+    color: rgb(250, 250, 86);
 }
 
 .bookmark-container{
-    background-color: lightgray;
+    background-color: rgb(235, 235, 235);
     border: 3px solid black;
     padding: 10px;
     margin-bottom: 4px;
@@ -63,7 +63,7 @@ p{
 }
 
 .add-container{
-    background-color: lightgray;
+    background-color: rgb(235, 231, 231);
     border: 3px solid black;
     padding: 10px;
     margin-bottom: 4px;

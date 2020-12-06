@@ -16,9 +16,10 @@ $.fn.extend({
 const generateBookmarkElement = function(item){
         return `<li class="bookmark-container" data-item-id="${item.id}"> 
         <h3>${item.title}</h3>
-        <p class="rate">${item.rating}</p>
+        <p class="rating">${item.rating}</p>
         <p class="${item.expanded ? '' : "article-expanded"}">${item.desc}</p>
         <p class="${item.expanded ? '' : "article-expanded"}"><a href="${item.url}" calss="link">Visit this site</a></p>   
+        <div class="error-container"></div>
         <button class="detail-bookmark-button">...</button>
         <button class="delete-bookmark-button">Delete</button>
     </li>`
@@ -35,13 +36,13 @@ const generateBookmarkPage = function(){
                 <button class="js-add-button">Add Bookmark</button>
                 <label value="filter">Filter by Rate
                 <select name="filter" id="filter" class="filter">
-                    <option value="5">5</option>
-                    <option value="4">4</option>
-                    <option value="3">3</option>
-                    <option value="2">2</option>
                     <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
                 </select>
-                </labe>
+                </label>
                 <div class="js-add-container">
 
                 </div>
@@ -65,6 +66,9 @@ const generateError = function(error){
 const renderError = function(){
     if(store.error){
         const emessage = generateError(store.error)
+    $('.error-container').html(emessage);
+    }else{
+    $('.error-container').empty();
     }
 }
 
@@ -73,17 +77,14 @@ const render = function(){
 
     const bookmarkString = generateBookmarkString(store.Bookmark);
         $('.bookmark-article').html(bookmarkString);
-
 }
-const filterClick = function(){
-    $('#filter').on('change', () =>{
-        const filterValue = $('#filter option:selected').val();
-        store.Bookmark[filter] = filterValue;
-        
-    
 
-        render();
- 
+const filterClick = function(){
+    $('#filter').on('change', e =>{
+        e.preventDefault();
+        const filterValue = $('#filter option:selected').val();
+        store.filterByRating(filterValue);
+        render(); 
     })
 }
 
@@ -116,7 +117,7 @@ const AddBookmarkPage = function(){
     else{
         $('.js-add-container').empty();
     }
-    //render();
+   render();
 }
 
 
@@ -139,7 +140,6 @@ const clickAddBookmark = function(){
                 store.addBookmark(bookmark);
                 store.adding = false;
                 store.expanded = false;
-                store.filter = 0;
             $('.js-add-container').empty();
                 render();
             })
@@ -195,7 +195,7 @@ const deleteBookmarkClick = function(){
     deleteBookmarkClick(),
     addBookmarkSubmit(),
     detailBookmarkClicked(),
-    filterClick()
+     filterClick()
 }
 
 
