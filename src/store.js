@@ -1,11 +1,14 @@
 /* eslint-disable no-unused-vars */
+
+
 const Bookmark = [];
 let error = null ;
 let adding = false;
+let expanded = false;
 let filter = 0;
 
 const findById = function(id){
-    return this.items.find(item => item.id === id);
+    return this.Bookmark.find(item => item.id === id);
 };
 
 const addBookmark = function(item){
@@ -22,12 +25,15 @@ const findAndUpdate = function(id, newData){
     Object.assign(current, newData);
 };
 
+
+
 const setError = function(error){
     this.error = error;
 };
 
 export default {
     Bookmark,
+    expanded,
     error,
     adding,
     filter,
