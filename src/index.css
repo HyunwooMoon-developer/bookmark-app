@@ -48,7 +48,7 @@ p{
 .rating{
     text-align: right;
     font-weight: 600;
-    color: rgb(250, 250, 86);
+    color: red;
 }
 
 .bookmark-container{

@@ -16,7 +16,7 @@ $.fn.extend({
 const generateBookmarkElement = function(item){
         return `<li class="bookmark-container" data-item-id="${item.id}"> 
         <h3>${item.title}</h3>
-        <p class="rating">${item.rating}</p>
+        <h4 class="rating">${item.rating}</h4>
         <p class="${item.expanded ? '' : "article-expanded"}">${item.desc}</p>
         <p class="${item.expanded ? '' : "article-expanded"}"><a href="${item.url}" calss="link">Visit this site</a></p>   
         <div class="error-container"></div>
@@ -83,6 +83,7 @@ const filterClick = function(){
     $('#filter').on('change', e =>{
         e.preventDefault();
         const filterValue = $('#filter option:selected').val();
+        store.filter = filterValue;
         store.filterByRating(filterValue);
         render(); 
     })

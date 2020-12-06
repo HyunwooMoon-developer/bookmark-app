@@ -26,7 +26,7 @@ const filterList = function(items){
 
 const filterByRating = function(items){
     this.Bookmark = this.Bookmark.filter(item => {
-       item.rating = items ;
+       item.rating >= items ;
     })
 }
 
