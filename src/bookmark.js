@@ -25,10 +25,6 @@ const generateBookmarkElement = function(item){
     </li>`
     }
 
-const generateBookmarkString = function(items){
-    const bookmarks = items.map((item)=> generateBookmarkElement(item));
-    return bookmarks.join("");
-};
 
 
 const generateBookmarkPage = function(){
@@ -72,19 +68,31 @@ const renderError = function(){
     }
 }
 
+const generateBookmarkString = function(items){
+    const bookmarks = items.map((item)=> generateBookmarkElement(item));
+    return bookmarks.join("");
+};
+
 const render = function(){
     renderError();
-
-    const bookmarkString = generateBookmarkString(store.Bookmark);
+    //console.log('render : store.filter : ', store.filter);
+    const filteredBookmarks = store.Bookmark.filter(item =>
+        item.rating >= store.filter
+    )
+    //console.log('render : filterBookmarks : ');
+    //console.table(filteredBookmarks);
+    const bookmarkString = generateBookmarkString(filteredBookmarks);
         $('.bookmark-article').html(bookmarkString);
 }
 
 const filterClick = function(){
     $('#filter').on('change', e =>{
         e.preventDefault();
-        const filterValue = $('#filter option:selected').val();
-        store.filter = filterValue;
-        store.filterByRating(filterValue);
+        store.filter = $('#filter option:selected').val();
+        //console.log('filterClick : store.filter : ' ,store.filter);
+        //store.filterByRating(filterValue);
+        //console.log('filterClick : store.Bookmark :');
+        //console.table(store.Bookmark)
         render(); 
     })
 }
@@ -141,6 +149,7 @@ const clickAddBookmark = function(){
                 store.addBookmark(bookmark);
                 store.adding = false;
                 store.expanded = false;
+                store.filter = 0;
             $('.js-add-container').empty();
                 render();
             })
