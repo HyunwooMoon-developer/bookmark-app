@@ -34,9 +34,8 @@ p{
 }
 
 .rating{
-    text-align: right;
+    text-align: left;
     font-weight: 600;
-
     color: orange;
 }
 
