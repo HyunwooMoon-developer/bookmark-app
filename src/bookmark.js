@@ -16,7 +16,7 @@ $.fn.extend({
 const generateBookmarkElement = function(item){
         return `<li class="bookmark-container" data-item-id="${item.id}"> 
         <h3>${item.title}</h3>
-        <h4 class="rating">${item.rating}</h4>
+        <h4 class="rating">${item.rating}</h4>
         <p class="${item.expanded ? '' : "article-expanded"}">${item.desc}</p>
         <p class="${item.expanded ? '' : "article-expanded"}" id="link"><a href="${item.url}">Visit this site</a></p>   
         <div class="error-container"></div>
