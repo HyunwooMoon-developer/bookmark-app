@@ -33,22 +33,10 @@ p{
     display: none;
 }
 
-.link{
-    color: blue;
-}
-
-.link:visited{
-    color: green; 
-}
-
-.link:hover{
-    color: hotpink;
-}
-
 .rating{
     text-align: right;
     font-weight: 600;
-    color: red;
+    color: yellow;
 }
 
 .bookmark-container{

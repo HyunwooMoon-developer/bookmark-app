@@ -18,7 +18,7 @@ const generateBookmarkElement = function(item){
         <h3>${item.title}</h3>
         <h4 class="rating">${item.rating}</h4>
         <p class="${item.expanded ? '' : "article-expanded"}">${item.desc}</p>
-        <p class="${item.expanded ? '' : "article-expanded"}"><a href="${item.url}" calss="link">Visit this site</a></p>   
+        <p class="${item.expanded ? '' : "article-expanded"}" id="link"><a href="${item.url}">Visit this site</a></p>   
         <div class="error-container"></div>
         <button class="detail-bookmark-button">...</button>
         <button class="delete-bookmark-button">Delete</button>
@@ -149,7 +149,7 @@ const clickAddBookmark = function(){
                 store.addBookmark(bookmark);
                 store.adding = false;
                 store.expanded = false;
-                store.filter = 0;
+                store.filter = 1;
             $('.js-add-container').empty();
                 render();
             })
