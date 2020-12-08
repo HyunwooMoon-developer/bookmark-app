@@ -19,7 +19,6 @@ const generateBookmarkElement = function(item){
         <h4 class="rating">${item.rating}</h4>
         <p class="${item.expanded ? '' : "article-expanded"}">${item.desc}</p>
         <p class="${item.expanded ? '' : "article-expanded"}" id="link"><a href="${item.url}">Visit this site</a></p>   
-        <div class="error-container"></div>
         <button class="detail-bookmark-button">...</button>
         <button class="delete-bookmark-button">Delete</button>
     </li>`
@@ -28,7 +27,7 @@ const generateBookmarkElement = function(item){
 
 
 const generateBookmarkPage = function(){
-    $('main').html(`
+    $('.main-container').html(`
                 <button class="js-add-button">Add Bookmark</button>
                 <label value="filter">Filter by Rate
                 <select name="filter" id="filter" class="filter">
@@ -42,6 +41,7 @@ const generateBookmarkPage = function(){
                 <div class="js-add-container">
 
                 </div>
+                <div class="error-container"></div>
             <ul class="bookmark-article">
 
             </ul>
@@ -53,8 +53,8 @@ const generateBookmarkPage = function(){
 const generateError = function(error){
     return `
     <div class="error-message">
+    <p class="error-message">${error}</p>
         <button id="cancel-error">Cancel</button>
-        <p>${error}</p>
     </div>
     `;
 }
@@ -131,7 +131,7 @@ const AddBookmarkPage = function(){
 
 
 const clickAddBookmark = function(){
-    $('main').on('click', '.js-add-button' , e=>{
+    $('.main-container').on('click', '.js-add-button' , e=>{
         e.preventDefault();
         store.adding = true ;
         AddBookmarkPage();
@@ -163,6 +163,12 @@ const clickAddBookmark = function(){
 
 
 
+    const errorClick = function(){
+        $('.error-container').on('click', '#cancel-error', () =>{
+            store.setError(null);
+            renderError();
+        })
+    }
 
     const detailBookmarkView = function(detail){
         let id = detail.parent().data('itemId');
@@ -205,7 +211,8 @@ const deleteBookmarkClick = function(){
     deleteBookmarkClick(),
     addBookmarkSubmit(),
     detailBookmarkClicked(),
-     filterClick()
+     filterClick(),
+     errorClick()
 }
 
 

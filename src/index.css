@@ -46,6 +46,11 @@ p{
     margin-bottom: 4px;
 }
 
+.error-message{
+    color: red;
+    font-weight: 600p;
+}
+
 .article-expanded{
     display: none;
 }
