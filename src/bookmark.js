@@ -103,9 +103,9 @@ const AddBookmarkPage = function(){
     if(store.adding === true){
         let form = `<form id="add-bookmark">
         <label for="title">Title : </label>
-        <input type="text" id="title" name="title" placeholder="type title" required>
+        <input type="text" id="title" name="title" placeholder="type title" required/>
         <label for="url">URL : </label>
-        <input type="text" id="url" name="url" placeholder="type url" required>
+        <input type="text" id="url" name="url" placeholder="type url" required/>
         <br>
         <label for="description">Description of Bookmark</label>   
         <br> 
@@ -119,7 +119,7 @@ const AddBookmarkPage = function(){
             <option value="5">5</option>
         </select>
         </label>
-        <button type='submit' class="add-submit-button">submit</button>
+        <button type='submit' class="add-submit-button" id="submit-button">submit</button>
         </form>`
         $('.js-add-container').html(form)
     }
@@ -140,7 +140,7 @@ const clickAddBookmark = function(){
     }
 
     const addBookmarkSubmit = function(){
-        $('.js-add-container').on('click', '.add-submit-button' ,e => {
+        $('.main-container').on('submit', '#add-bookmark' ,e => {
             e.preventDefault(); 
             const newBookmark = $('#add-bookmark').serializeJson();
 
